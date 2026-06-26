@@ -24,7 +24,10 @@ from engine import start_live_engine
 # ── Config ────────────────────────────────────────────────────────────────────
 HOST = "127.0.0.1"
 PORT = 5050
-EMIT_INTERVAL = 2.0   # secondes entre chaque push WebSocket
+# Intervalle entre chaque push WebSocket. La latence réelle perçue par le
+# client dépend aussi du flux Databento, du réseau et du plan data — réduire
+# cette valeur n'élimine pas ces autres sources de délai.
+EMIT_INTERVAL = float(os.getenv("NQGS_EMIT_INTERVAL", "0.5"))
 
 # ── Start engine ──────────────────────────────────────────────────────────────
 print("[server] Starting engine…")
@@ -234,6 +237,19 @@ threading.Thread(target=_ws_push_loop, daemon=True, name="ws-push").start()
 @socketio.on("connect")
 def on_connect():
     print("[ws] Client connecté")
+    # Envoie un snapshot immédiat plutôt que d'attendre le prochain tick de
+    # la boucle périodique (qui peut survenir jusqu'à EMIT_INTERVAL plus tard).
+    try:
+        snap = eng.snapshot()
+        if snap is not None:
+            socketio.emit("snapshot", _serialize_snapshot(snap), to=request.sid)
+        else:
+            socketio.emit("snapshot", {
+                "status": "waiting",
+                "message": "No spot data yet — market may be closed."
+            }, to=request.sid)
+    except Exception as e:
+        socketio.emit("snapshot", {"status": "error", "message": str(e)}, to=request.sid)
 
 @socketio.on("disconnect")
 def on_disconnect():

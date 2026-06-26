@@ -106,6 +106,7 @@
     animation: pulse 2s infinite;
   }
   .pulse.dead { background: var(--neg); box-shadow: 0 0 8px var(--neg); animation: none; }
+  .pulse.stale { background: var(--spot); box-shadow: 0 0 8px var(--spot); }
   .pulse.waiting { background: var(--spot); box-shadow: 0 0 8px var(--spot); }
 
   @keyframes pulse {
@@ -321,8 +322,8 @@
   .dte-col .dte-row .v { color: var(--text); font-weight: 700; }
   .dte-col .dte-row .pos { color: var(--pos); }
   .dte-col .dte-row .neg { color: var(--neg); }
-  .dte-col .dte-row .res { color: #ff6b35; font-weight: 700; }
-  .dte-col .dte-row .sup { color: #3fb950; font-weight: 700; }
+  .dte-col .dte-row .res { color: #58a6ff; font-weight: 700; }
+  .dte-col .dte-row .sup { color: #ff6b35; font-weight: 700; }
 
   /* TIMEFRAME BAR */
   .tf-bar {
@@ -365,8 +366,8 @@
     color: var(--muted);
   }
   .tf-bar-info .lvl-flip { color: var(--flip); }
-  .tf-bar-info .lvl-call { color: var(--pos); }
-  .tf-bar-info .lvl-put  { color: var(--neg); }
+  .tf-bar-info .lvl-call { color: #58a6ff; }
+  .tf-bar-info .lvl-put  { color: #ff6b35; }
 
   /* === LAYOUT PRO : MAIN ROW (chart + sidebar) === */
   .main-row {
@@ -442,8 +443,8 @@
     transition: background 0.15s;
   }
   .sb-level:hover { background: rgba(255,255,255,0.04); }
-  .sb-level.res { border-left-color: #ff6b35; }
-  .sb-level.sup { border-left-color: #3fb950; }
+  .sb-level.res { border-left-color: #58a6ff; }
+  .sb-level.sup { border-left-color: #ff6b35; }
   .sb-level.cluster { border-left-color: var(--flip); }
   .sb-level .strike { font-weight: 700; }
   .sb-level .dist { color: var(--muted); font-size: 9px; }
@@ -472,8 +473,8 @@
     border-radius: 2px;
     transition: width 0.3s ease;
   }
-  .sb-level.res .sb-bar > i { background: #ff6b35; }
-  .sb-level.sup .sb-bar > i { background: #3fb950; }
+  .sb-level.res .sb-bar > i { background: #58a6ff; }
+  .sb-level.sup .sb-bar > i { background: #ff6b35; }
   .sb-level.cluster .sb-bar > i { background: var(--flip); }
 
   /* === OVERLAY TOGGLES === */
@@ -695,158 +696,6 @@
   .toast.oi    { border-color: var(--flip); border-left-color: var(--flip); }
   .toast.oi    .ttype { color: var(--flip); }
 
-    /* === TRADER COCKPIT === */
-  .cockpit {
-    margin: 8px 14px 12px;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.05));
-    padding: 12px 14px 10px;
-    position: relative;
-    transition: background 0.4s, border-color 0.4s;
-  }
-  .cockpit[data-regime="BULLISH"]    { background: linear-gradient(180deg, rgba(57,211,83,0.10), rgba(57,211,83,0.02)); border-color: rgba(57,211,83,0.30); }
-  .cockpit[data-regime="BEARISH"]    { background: linear-gradient(180deg, rgba(248,81,73,0.10), rgba(248,81,73,0.02)); border-color: rgba(248,81,73,0.30); }
-  .cockpit[data-regime="TRANSITION"] { background: linear-gradient(180deg, rgba(227,179,65,0.10), rgba(227,179,65,0.02)); border-color: rgba(227,179,65,0.30); }
-  .cockpit[data-regime="UNKNOWN"]    { background: rgba(255,255,255,0.02); }
-  .cockpit-head {
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 12px; margin-bottom: 6px;
-  }
-  .cp-regime-label {
-    font-size: 15px; font-weight: 700; letter-spacing: 0.3px;
-  }
-  .cp-why-btn {
-    background: rgba(255,255,255,0.06); border: 1px solid var(--border);
-    color: var(--text); font-family: 'Space Mono', monospace; font-size: 10px;
-    padding: 3px 10px; border-radius: 4px; cursor: pointer;
-    transition: background 0.15s;
-  }
-  .cp-why-btn:hover { background: rgba(255,255,255,0.12); }
-  .cp-bias { display: flex; align-items: center; gap: 6px; }
-  .cp-bias-label { color: var(--muted); font-size: 10px; }
-  .cp-bias-val {
-    font-size: 18px; font-weight: 800; letter-spacing: 0.8px;
-    padding: 2px 10px; border-radius: 4px;
-  }
-  .cp-bias-val.long  { background: rgba(57,211,83,0.18);  color: var(--pos); }
-  .cp-bias-val.short { background: rgba(248,81,73,0.18);  color: var(--neg); }
-  .cp-bias-val.neutral { background: rgba(160,160,160,0.18); color: var(--text); }
-  .cp-bias-conf {
-    font-size: 11px; color: var(--muted);
-    font-variant-numeric: tabular-nums;
-  }
-  .cp-context {
-    color: var(--text); font-size: 11px; opacity: 0.85;
-    margin-bottom: 8px; line-height: 1.45;
-  }
-  .cp-migration {
-    font-size: 10.5px; color: var(--muted); margin-bottom: 6px;
-    padding: 4px 8px; border-left: 2px solid var(--spot);
-    background: rgba(227,179,65,0.05); border-radius: 0 3px 3px 0;
-  }
-  .cp-migration[hidden] { display: none; }
-  .cp-migration b { color: var(--text); font-weight: 700; }
-  .cp-migration .mig-up   { color: var(--pos); }
-  .cp-migration .mig-down { color: var(--neg); }
-  .cp-levels {
-    display: flex; gap: 14px; flex-wrap: wrap;
-    font-size: 11px; margin-bottom: 10px;
-    padding: 6px 10px; background: rgba(0,0,0,0.18);
-    border: 1px solid rgba(255,255,255,0.04); border-radius: 5px;
-  }
-  .cp-levels[hidden] { display: none; }
-  .cp-lvl { display: flex; align-items: center; gap: 6px; }
-  .cp-lvl .lbl { color: var(--muted); font-size: 9.5px; letter-spacing: 0.8px; text-transform: uppercase; }
-  .cp-lvl .strike { font-weight: 700; color: var(--text); font-variant-numeric: tabular-nums; }
-  .cp-lvl.res .strike { color: var(--accent); }
-  .cp-lvl.sup .strike { color: var(--pos); }
-  .cp-lvl .dist  { color: var(--muted); font-size: 10px; font-variant-numeric: tabular-nums; }
-  .cp-lifetime {
-    display: inline-block; font-size: 9px; padding: 1px 6px;
-    border-radius: 3px; font-weight: 700; letter-spacing: 0.5px;
-  }
-  .cp-lifetime.EPHEMERAL  { background: rgba(248,81,73,0.18);  color: var(--neg); }
-  .cp-lifetime.WEEKLY     { background: rgba(227,179,65,0.18); color: var(--spot); }
-  .cp-lifetime.STRUCTURAL { background: rgba(57,211,83,0.18);  color: var(--pos); }
-  .cp-lifetime.UNKNOWN    { background: rgba(160,160,160,0.14); color: var(--muted); }
-  .cp-flow-badge {
-    display: inline-block; font-size: 10px; padding: 2px 8px;
-    border-radius: 3px; font-weight: 700; letter-spacing: 0.4px;
-  }
-  .cp-flow-badge[hidden] { display: none; }
-  .cp-flow-badge.confirm    { background: rgba(57,211,83,0.20);  color: var(--pos); }
-  .cp-flow-badge.contradict { background: rgba(248,81,73,0.20);  color: var(--neg); }
-  .cp-grid {
-    display: grid; grid-template-columns: 1.1fr 1fr; gap: 10px;
-    margin-bottom: 8px;
-  }
-  .cp-section-title {
-    color: var(--muted); font-size: 9px; letter-spacing: 1.5px;
-    text-transform: uppercase; margin-bottom: 4px;
-  }
-  .cp-setup, .cp-actions-wrap {
-    background: rgba(0,0,0,0.18);
-    border: 1px solid rgba(255,255,255,0.04);
-    border-radius: 5px; padding: 8px 10px;
-  }
-  .cp-setup-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
-  .cp-setup-desc  { font-size: 11px; opacity: 0.85; line-height: 1.4; margin-bottom: 6px; }
-  .cp-setup-levels {
-    display: flex; gap: 12px; flex-wrap: wrap; font-size: 11px;
-    color: var(--muted);
-  }
-  .cp-setup-levels b { color: var(--text); font-weight: 700; font-variant-numeric: tabular-nums; }
-  .cp-setup-levels .rr-good { color: var(--pos); }
-  .cp-setup-levels .rr-poor { color: var(--neg); }
-  .cp-actions-list { list-style: none; padding: 0; margin: 0; }
-  .cp-actions-list li {
-    display: flex; gap: 8px; align-items: flex-start;
-    padding: 3px 0; font-size: 11px;
-  }
-  .cp-actions-list li .ico { flex: 0 0 16px; font-size: 13px; line-height: 1.2; }
-  .cp-actions-list li .lbl { font-weight: 700; }
-  .cp-actions-list li .det { color: var(--muted); font-size: 10px; margin-left: 4px; }
-  .cp-foot {
-    display: flex; gap: 14px; flex-wrap: wrap;
-    padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.04);
-    font-size: 10px; color: var(--muted);
-  }
-  .cp-traps { flex: 1; min-width: 200px; }
-  .cp-traps b { color: var(--accent); }
-  .cp-phase { white-space: nowrap; }
-
-  /* Glossary inline */
-  .gloss {
-    border-bottom: 1px dotted rgba(205,217,229,0.4);
-    cursor: help;
-  }
-
-  /* Why popup modal */
-  .cp-why-popup {
-    position: fixed; inset: 0;
-    background: rgba(0,0,0,0.65); z-index: 9999;
-    display: flex; align-items: center; justify-content: center;
-    padding: 30px;
-  }
-  .cp-why-popup[hidden] { display: none; }
-  .cp-why-content {
-    background: var(--panel); border: 1px solid var(--border);
-    border-radius: 8px; max-width: 720px; width: 100%;
-    max-height: 80vh; overflow-y: auto;
-    padding: 22px 28px; position: relative;
-    box-shadow: 0 12px 60px rgba(0,0,0,0.5);
-  }
-  .cp-why-content h3 { font-size: 16px; margin-bottom: 12px; color: var(--text); }
-  .cp-why-content h4 { font-size: 11px; color: var(--muted); margin: 12px 0 4px; letter-spacing: 1.5px; text-transform: uppercase; }
-  .cp-why-content p, .cp-why-content li { font-size: 12px; line-height: 1.55; color: var(--text); }
-  .cp-why-content ul { margin-left: 18px; }
-  .cp-why-close {
-    position: absolute; top: 10px; right: 14px;
-    background: transparent; border: none; color: var(--muted);
-    font-size: 22px; cursor: pointer; line-height: 1;
-  }
-  .cp-why-close:hover { color: var(--text); }
 
   /* Wall strength badges (chart label + sidebar) */
   .sb-strength {
@@ -876,7 +725,7 @@
   </div>
   <div class="status-bar">
     <div class="pulse waiting" id="pulse"></div>
-    <span id="ws-status">connecting&hellip;</span>
+    <span id="ws-status">disconnected</span>
     <span id="last-update">&mdash;</span>
   </div>
 </header>
@@ -903,69 +752,13 @@
       <button class="ov-toggle on" data-ov="oi"><span class="dot"></span>OI</button>
       <button class="ov-toggle on" data-ov="clusters"><span class="dot"></span>&gamma; Clusters</button>
       <button class="ov-toggle on" data-ov="flip"><span class="dot"></span>Flip</button>
-      <button class="ov-toggle on" data-ov="zones"><span class="dot"></span>Zones</button>
     </div>
     <span class="tf-bar-spacer"></span>
     <span class="tf-bar-info" id="tf-bar-info">
       <span class="lvl-flip">flip &mdash;</span> &nbsp;&middot;&nbsp;
-      <span class="lvl-call" style="color:#ff6b35">r&eacute;sistance &mdash;</span> &nbsp;&middot;&nbsp;
-      <span class="lvl-put" style="color:#3fb950">support &mdash;</span>
+      <span class="lvl-call" style="color:#58a6ff">calls &mdash;</span> &nbsp;&middot;&nbsp;
+      <span class="lvl-put" style="color:#ff6b35">puts &mdash;</span>
     </span>
-  </div>
-
-  <!-- TRADER COCKPIT : verdict d&eacute;cisionnel -->
-  <section class="cockpit" id="cockpit" data-regime="UNKNOWN">
-    <div class="cockpit-head">
-      <div>
-        <span class="cp-regime-label" id="cp-regime-label">— En attente de donn&eacute;es —</span>
-      </div>
-      <div class="cp-bias">
-        <span class="cp-bias-label">BIAS</span>
-        <span class="cp-bias-val neutral" id="cp-bias">—</span>
-        <span class="cp-bias-conf" id="cp-bias-conf">—</span>
-        <span class="cp-flow-badge" id="cp-flow-badge" hidden></span>
-        <button class="cp-why-btn" id="cp-why-btn" type="button">Pourquoi&nbsp;?</button>
-      </div>
-    </div>
-    <div class="cp-context" id="cp-context">— Spot, flip, <span class="gloss" title="Gamma Exposure : combien les dealers doivent acheter/vendre par 1% de move. + = stabilisant, - = volatile.">GEX</span> —</div>
-
-    <!-- Ligne migration flip + trend (hidden si pas de données) -->
-    <div class="cp-migration" id="cp-migration" hidden></div>
-
-    <!-- Niveaux clés avec badges lifetime -->
-    <div class="cp-levels" id="cp-levels" hidden></div>
-
-    <div class="cp-grid">
-      <div class="cp-setup">
-        <div class="cp-section-title">Setup actif</div>
-        <div class="cp-setup-title" id="cp-setup-title">—</div>
-        <div class="cp-setup-desc"  id="cp-setup-desc">—</div>
-        <div class="cp-setup-levels">
-          <span>Entry <b id="cp-entry">—</b></span>
-          <span>Stop  <b id="cp-stop">—</b></span>
-          <span>Cible <b id="cp-target">—</b></span>
-          <span><span class="gloss" title="Risk/Reward ratio. 1.5 = tu risques 1 pour gagner 1.5.">R:R</span> <b id="cp-rr">—</b></span>
-        </div>
-      </div>
-      <div class="cp-actions-wrap">
-        <div class="cp-section-title">&Agrave; faire maintenant</div>
-        <ul class="cp-actions-list" id="cp-actions"><li>—</li></ul>
-      </div>
-    </div>
-
-    <div class="cp-foot">
-      <div class="cp-traps" id="cp-traps">—</div>
-      <div class="cp-phase" id="cp-phase">— phase —</div>
-    </div>
-  </section>
-
-  <!-- Why popup -->
-  <div class="cp-why-popup" id="cp-why-popup" hidden>
-    <div class="cp-why-content">
-      <button class="cp-why-close" id="cp-why-close" type="button">&times;</button>
-      <h3 id="cp-why-title">Pourquoi ce verdict ?</h3>
-      <div id="cp-why-body"></div>
-    </div>
   </div>
 
   <!-- MAIN ROW : chart + sidebar -->
@@ -973,8 +766,8 @@
     <div class="main-chart-area">
       <div class="panel-title">
         Spot NQ &mdash; <span id="spot-tf-label">5m</span>
-        &nbsp;&middot;&nbsp; <span style="color:#ff6b35">r&eacute;sistance</span>
-        &nbsp;&middot;&nbsp; <span style="color:#3fb950">support</span>
+        &nbsp;&middot;&nbsp; <span style="color:#58a6ff">call walls</span>
+        &nbsp;&middot;&nbsp; <span style="color:#ff6b35">put walls</span>
         &nbsp;&middot;&nbsp; <span style="color:var(--spot)">flip</span>
         &nbsp;&middot;&nbsp; <span style="color:var(--cyan)">OI</span>
         &nbsp;&middot;&nbsp; <span style="color:var(--flip)">&gamma; cluster</span>
@@ -1020,11 +813,11 @@
         </div>
       </div>
       <div class="sb-section">
-        <div class="sb-header" title="Strikes au-dessus du spot avec gamma positif : zones où les dealers vont vendre = freinage haussier.">R&eacute;sistance (above)</div>
+        <div class="sb-header" title="Strikes avec le plus de gamma sur des calls : niveau où les dealers vont vendre en hausse = freinage haussier.">Call Walls</div>
         <div id="sb-resistances"></div>
       </div>
       <div class="sb-section">
-        <div class="sb-header" title="Strikes en-dessous du spot avec gamma négatif : zones où les dealers vont acheter = freinage baissier.">Support (below)</div>
+        <div class="sb-header" title="Strikes avec le plus de gamma sur des puts : niveau où les dealers vont acheter en baisse = freinage baissier.">Put Walls</div>
         <div id="sb-supports"></div>
       </div>
       <div class="sb-section">
@@ -1080,32 +873,32 @@
       <div class="dte-label">0DTE</div>
       <div class="dte-row"><span>Net GEX</span><span class="v" id="dte0d-gex">&mdash;</span></div>
       <div class="dte-row"><span>Net DEX</span><span class="v" id="dte0d-dex">&mdash;</span></div>
-      <div class="dte-row"><span>R&eacute;sist.</span><span class="v res" id="dte0d-call">&mdash;</span></div>
-      <div class="dte-row"><span>Support</span><span class="v sup" id="dte0d-put">&mdash;</span></div>
+      <div class="dte-row"><span>Call</span><span class="v res" id="dte0d-call">&mdash;</span></div>
+      <div class="dte-row"><span>Put</span><span class="v sup" id="dte0d-put">&mdash;</span></div>
       <div class="dte-row"><span>Contrats</span><span class="v" id="dte0d-n">&mdash;</span></div>
     </div>
     <div class="dte-col" data-bucket="1-7d">
       <div class="dte-label">1-7d</div>
       <div class="dte-row"><span>Net GEX</span><span class="v" id="dte17-gex">&mdash;</span></div>
       <div class="dte-row"><span>Net DEX</span><span class="v" id="dte17-dex">&mdash;</span></div>
-      <div class="dte-row"><span>R&eacute;sist.</span><span class="v res" id="dte17-call">&mdash;</span></div>
-      <div class="dte-row"><span>Support</span><span class="v sup" id="dte17-put">&mdash;</span></div>
+      <div class="dte-row"><span>Call</span><span class="v res" id="dte17-call">&mdash;</span></div>
+      <div class="dte-row"><span>Put</span><span class="v sup" id="dte17-put">&mdash;</span></div>
       <div class="dte-row"><span>Contrats</span><span class="v" id="dte17-n">&mdash;</span></div>
     </div>
     <div class="dte-col" data-bucket="8-30d">
       <div class="dte-label">8-30d</div>
       <div class="dte-row"><span>Net GEX</span><span class="v" id="dte830-gex">&mdash;</span></div>
       <div class="dte-row"><span>Net DEX</span><span class="v" id="dte830-dex">&mdash;</span></div>
-      <div class="dte-row"><span>R&eacute;sist.</span><span class="v res" id="dte830-call">&mdash;</span></div>
-      <div class="dte-row"><span>Support</span><span class="v sup" id="dte830-put">&mdash;</span></div>
+      <div class="dte-row"><span>Call</span><span class="v res" id="dte830-call">&mdash;</span></div>
+      <div class="dte-row"><span>Put</span><span class="v sup" id="dte830-put">&mdash;</span></div>
       <div class="dte-row"><span>Contrats</span><span class="v" id="dte830-n">&mdash;</span></div>
     </div>
     <div class="dte-col" data-bucket="30+d">
       <div class="dte-label">30+d</div>
       <div class="dte-row"><span>Net GEX</span><span class="v" id="dte30-gex">&mdash;</span></div>
       <div class="dte-row"><span>Net DEX</span><span class="v" id="dte30-dex">&mdash;</span></div>
-      <div class="dte-row"><span>R&eacute;sist.</span><span class="v res" id="dte30-call">&mdash;</span></div>
-      <div class="dte-row"><span>Support</span><span class="v sup" id="dte30-put">&mdash;</span></div>
+      <div class="dte-row"><span>Call</span><span class="v res" id="dte30-call">&mdash;</span></div>
+      <div class="dte-row"><span>Put</span><span class="v sup" id="dte30-put">&mdash;</span></div>
       <div class="dte-row"><span>Contrats</span><span class="v" id="dte30-n">&mdash;</span></div>
     </div>
   </div>
@@ -1251,13 +1044,16 @@
 <script>
 // Config
 const API = window.location.origin;
-const FALLBACK_POLL_MS = 60000;
+// Fallback HTTP polling : utilisé seulement si le WebSocket échoue. Reste
+// court car c'est une interface live — la vraie fraîcheur dépend du
+// WebSocket + de ce que Databento délivre.
+const FALLBACK_POLL_MS = 2000;
 
 // Chart registry
 const charts = {};
 
-// Overlay state (localStorage). 5 toggles : walls, oi, clusters, flip, zones.
-const OV_DEFAULTS = { walls: true, oi: true, clusters: true, flip: true, zones: true };
+// Overlay state (localStorage). 4 toggles : walls, oi, clusters, flip.
+const OV_DEFAULTS = { walls: true, oi: true, clusters: true, flip: true };
 let OVERLAYS = (() => {
   try {
     const saved = JSON.parse(localStorage.getItem('nqg.overlays') || '{}');
@@ -1383,7 +1179,7 @@ const greeksOverlayPlugin = {
   beforeDatasetsDraw(chart) {
     const { ctx, chartArea: ca, scales: { y } } = chart;
     if (!y || !ca) return;
-    if (!OVERLAYS.zones) return;
+    if (!OVERLAYS.flip) return;
     const flip = SPOT_LEVELS.flip;
     if (flip == null) return;
 
@@ -1392,21 +1188,7 @@ const greeksOverlayPlugin = {
     const flipY  = Math.max(top, Math.min(bottom, flipPx));
 
     ctx.save();
-    // Zone bullish (au-dessus du flip) : gradient vert plus marque pres du flip
-    const greenGrad = ctx.createLinearGradient(0, top, 0, flipY);
-    greenGrad.addColorStop(0,   'rgba(57, 211, 83, 0.06)');
-    greenGrad.addColorStop(1,   'rgba(57, 211, 83, 0.16)');
-    ctx.fillStyle = greenGrad;
-    ctx.fillRect(ca.left, top, ca.right - ca.left, flipY - top);
-
-    // Zone bearish (en-dessous du flip) : gradient rouge plus marque pres du flip
-    const redGrad = ctx.createLinearGradient(0, flipY, 0, bottom);
-    redGrad.addColorStop(0,   'rgba(248, 81, 73, 0.16)');
-    redGrad.addColorStop(1,   'rgba(248, 81, 73, 0.06)');
-    ctx.fillStyle = redGrad;
-    ctx.fillRect(ca.left, flipY, ca.right - ca.left, bottom - flipY);
-
-    // Ligne fine au niveau du flip pour bien le marquer meme avec le toggle Flip off
+    // Ligne fine au niveau du flip pour bien le marquer
     ctx.strokeStyle = 'rgba(227, 179, 65, 0.4)';
     ctx.lineWidth = 1;
     ctx.setLineDash([2, 4]);
@@ -1432,15 +1214,10 @@ const greeksOverlayPlugin = {
     const maxC = calls.length ? Math.max(...calls.map(w => Math.abs(w.gex))) : 1;
     const maxP = puts.length  ? Math.max(...puts.map(w => Math.abs(w.gex)))  : 1;
 
-    // ── Construire les candidats : COULEUR = position relative au spot
-    // Wall AU-DESSUS du spot = orange (resistance / ceiling)
-    // Wall EN-DESSOUS du spot = vert (support / floor)
-    // Label garde CALL/PUT pour le contexte
-    const spotPos = (window.LAST_DATA && window.LAST_DATA.spot) || null;
-    const colorFor = (strike) => {
-      if (!spotPos) return '#cdd9e5';
-      return strike > spotPos ? '#ff6b35' /* resistance */ : '#3fb950' /* support */;
-    };
+    // ── Couleur fixe par type : bleu = call wall, orange = put wall.
+    // Jamais selon la position relative au spot.
+    const CALL_COLOR = '#58a6ff';
+    const PUT_COLOR  = '#ff6b35';
     const candidates = [];
     const oiTag = (w) => (w.oi && w.oi > 0) ? ' · ' + fmtOI(w.oi) : '';
     // Badge force compact : ◆◆◆ STRONG, ◆◆ MEDIUM, ◆ WEAK
@@ -1452,13 +1229,13 @@ const greeksOverlayPlugin = {
     };
     if (OVERLAYS.walls) {
       calls.forEach(w => candidates.push({
-        strike: w.strike, color: colorFor(w.strike),
+        strike: w.strike, color: CALL_COLOR,
         label: 'CALL ' + w.strike.toFixed(0) + oiTag(w) + strTag(w),
         intensity: Math.abs(w.gex) / maxC, priority: 50 + Math.abs(w.gex) / maxC * 30,
         dash: [], strength: w.strength,
       }));
       puts.forEach(w => candidates.push({
-        strike: w.strike, color: colorFor(w.strike),
+        strike: w.strike, color: PUT_COLOR,
         label: 'PUT ' + w.strike.toFixed(0) + oiTag(w) + strTag(w),
         intensity: Math.abs(w.gex) / maxP, priority: 50 + Math.abs(w.gex) / maxP * 30,
         dash: [], strength: w.strength,
@@ -1561,7 +1338,7 @@ const greeksOverlayPlugin = {
         if (closest.strike > y.max) {
           const dist = Math.round(closest.strike - spotMk);
           ctx.save();
-          ctx.fillStyle = '#ff6b35';  /* resistance, au-dessus */
+          ctx.fillStyle = '#58a6ff';  /* call wall */
           ctx.font = '700 10px Space Mono, monospace';
           ctx.textAlign = 'right';
           ctx.textBaseline = 'top';
@@ -1577,7 +1354,7 @@ const greeksOverlayPlugin = {
         if (closest.strike < y.min) {
           const dist = Math.round(spotMk - closest.strike);
           ctx.save();
-          ctx.fillStyle = '#3fb950';  /* support, en-dessous */
+          ctx.fillStyle = '#ff6b35';  /* put wall */
           ctx.font = '700 10px Space Mono, monospace';
           ctx.textAlign = 'right';
           ctx.textBaseline = 'bottom';
@@ -1588,53 +1365,6 @@ const greeksOverlayPlugin = {
       }
     }
   }
-};
-
-// Plugin trap zones (bandes orange translucides = gaps entre walls)
-const trapZonesPlugin = {
-  id: 'trapZones',
-  beforeDatasetsDraw(chart) {
-    const data = window.LAST_DATA;
-    const ma = data && data.market_analysis;
-    if (!ma || !Array.isArray(ma.traps) || ma.traps.length === 0) return;
-    const { ctx, chartArea: ca, scales: { y } } = chart;
-    if (!y || !ca) return;
-    ctx.save();
-    ma.traps.forEach(t => {
-      const lo = Math.min(t.zone[0], t.zone[1]);
-      const hi = Math.max(t.zone[0], t.zone[1]);
-      // Clip dans la fenêtre visible
-      if (hi < y.min || lo > y.max) return;
-      const yLo = y.getPixelForValue(Math.min(hi, y.max));
-      const yHi = y.getPixelForValue(Math.max(lo, y.min));
-      const top = Math.min(yLo, yHi), bot = Math.max(yLo, yHi);
-      // Bande orange diagonale subtile
-      const grad = ctx.createLinearGradient(0, top, 0, bot);
-      grad.addColorStop(0, 'rgba(255, 107, 53, 0.04)');
-      grad.addColorStop(0.5, 'rgba(255, 107, 53, 0.12)');
-      grad.addColorStop(1, 'rgba(255, 107, 53, 0.04)');
-      ctx.fillStyle = grad;
-      ctx.fillRect(ca.left, top, ca.right - ca.left, bot - top);
-      // Hachures diagonales pour bien signaler "zone à éviter"
-      ctx.strokeStyle = 'rgba(255, 107, 53, 0.18)';
-      ctx.lineWidth = 1;
-      const step = 14;
-      ctx.beginPath();
-      for (let x = ca.left - (bot - top); x < ca.right; x += step) {
-        ctx.moveTo(x, bot);
-        ctx.lineTo(x + (bot - top), top);
-      }
-      ctx.stroke();
-      // Label "TRAP ZONE" centré
-      const mid = (top + bot) / 2;
-      ctx.fillStyle = 'rgba(255, 107, 53, 0.72)';
-      ctx.font = '700 9px "Space Mono", monospace';
-      ctx.textAlign = 'left';
-      ctx.textBaseline = 'middle';
-      ctx.fillText('⚠ TRAP ZONE ' + lo + '–' + hi, ca.left + 6, mid);
-    });
-    ctx.restore();
-  },
 };
 
 // Plugin OI heatmap + gamma clusters (bandes overlay sur le chart spot)
@@ -1898,7 +1628,7 @@ function makeSpotChart() {
         }
       }
     },
-    plugins: [trapZonesPlugin, oiHeatmapPlugin, candlePlugin, greeksOverlayPlugin, crosshairPlugin],
+    plugins: [oiHeatmapPlugin, candlePlugin, greeksOverlayPlugin, crosshairPlugin],
   });
 }
 
@@ -2022,28 +1752,21 @@ function updateSpotChart(data) {
   c.update('none');
 
   const infoEl = document.getElementById('tf-bar-info');
-  // Info-bar : closest call above + closest put below en priorite (meme hors-vue),
-  // puis les autres murs dans la fenetre
-  const yLo = c.options.scales.y.min;
-  const yHi = c.options.scales.y.max;
+  // Info-bar : call walls et put walls les plus proches du spot, jamais
+  // reclassés selon leur position au-dessus/en-dessous.
   const sp = data.spot;
-  // Resistance = tous les walls AU-DESSUS du spot (calls + puts confondus)
-  // Support    = tous les walls EN-DESSOUS du spot
-  function buildStr(walls, above) {
-    if (!sp) return '—';
-    const filtered = walls.filter(w => above ? w.strike > sp : w.strike < sp);
-    if (!filtered.length) return '—';
-    filtered.sort((a, b) => above ? a.strike - b.strike : b.strike - a.strike);
-    return filtered.slice(0, 4).map(w => w.strike.toFixed(0)).join(' / ');
+  function buildStr(walls) {
+    if (!sp || !walls.length) return '—';
+    return walls.slice().sort((a, b) => Math.abs(a.strike - sp) - Math.abs(b.strike - sp))
+      .slice(0, 4).map(w => w.strike.toFixed(0)).join(' / ');
   }
-  const allWalls = (SPOT_LEVELS.call_walls || []).concat(SPOT_LEVELS.put_walls || []);
-  const callStr = buildStr(allWalls, true);   // resistance (au-dessus)
-  const putStr  = buildStr(allWalls, false);  // support (en-dessous)
+  const callStr = buildStr(SPOT_LEVELS.call_walls || []);
+  const putStr  = buildStr(SPOT_LEVELS.put_walls  || []);
   const flipStr = SPOT_LEVELS.flip ? SPOT_LEVELS.flip.toFixed(0) : '—';
   infoEl.innerHTML =
     '<span class="lvl-flip">flip ' + flipStr + '</span> &nbsp;&middot;&nbsp; ' +
-    '<span style="color:#ff6b35">r&eacute;sistance ' + callStr + '</span> &nbsp;&middot;&nbsp; ' +
-    '<span style="color:#3fb950">support ' + putStr + '</span>';
+    '<span class="lvl-call">calls ' + callStr + '</span> &nbsp;&middot;&nbsp; ' +
+    '<span class="lvl-put">puts ' + putStr + '</span>';
 }
 
 // Formatters
@@ -2217,15 +1940,14 @@ function updateSidebar(data) {
     });
     return Array.from(map.values());
   }
-  const allWalls = dedupeByStrike(
-    (SPOT_LEVELS.call_walls || []).concat(SPOT_LEVELS.put_walls || [])
-  );
-  const resistances = allWalls.filter(w => w.strike > spot)
-                              .sort((a, b) => a.strike - b.strike).slice(0, 8);
-  const supports = allWalls.filter(w => w.strike < spot)
-                           .sort((a, b) => b.strike - a.strike).slice(0, 8);
+  // Call walls / put walls : listes propres, jamais fusionnées ni reclassées
+  // par position relative au spot. Un call wall reste un call wall.
+  const callWalls = dedupeByStrike(SPOT_LEVELS.call_walls || [])
+    .sort((a, b) => Math.abs(a.strike - spot) - Math.abs(b.strike - spot)).slice(0, 8);
+  const putWalls = dedupeByStrike(SPOT_LEVELS.put_walls || [])
+    .sort((a, b) => Math.abs(a.strike - spot) - Math.abs(b.strike - spot)).slice(0, 8);
 
-  function renderLevels(containerId, levels, klass, isAbove) {
+  function renderLevels(containerId, levels, klass) {
     // Intensité relative basée sur |gex| max de la liste -> jauge horizontale
     const maxAbsGex = levels.length
       ? Math.max(1, ...levels.map(w => Math.abs(w.gex || 0)))
@@ -2233,14 +1955,14 @@ function updateSidebar(data) {
     const html = levels.map(w => {
       const diff = w.strike - spot;
       const sign = diff >= 0 ? '+' : '−';
-      const arrow = isAbove ? '↑' : '↓';
       const oiStr = (w.oi && w.oi > 0) ? fmtOI(w.oi) + ' OI' : '—';
+      const dteStr = (w.dte != null) ? w.dte + 'd' : '—';
       const pct = Math.max(2, Math.round(Math.abs(w.gex || 0) / maxAbsGex * 100));
       const str = w.strength ? '<span class="sb-strength ' + w.strength + '">' + w.strength + '</span>' : '';
-      return '<div class="sb-level ' + klass + '" title="GEX ' + fmtDollar(w.gex || 0) + '">' +
+      return '<div class="sb-level ' + klass + '" title="GEX ' + fmtDollar(w.gex || 0) + ' · DTE ' + dteStr + '">' +
              '  <div class="sb-level-line">' +
-             '    <span class="strike">' + arrow + ' ' + w.strike.toFixed(0) + str + '</span>' +
-             '    <span class="oi">' + oiStr + '</span>' +
+             '    <span class="strike">' + w.strike.toFixed(0) + str + '</span>' +
+             '    <span class="oi">' + oiStr + ' · ' + fmtDollar(w.gex || 0) + ' · ' + dteStr + '</span>' +
              '    <span class="dist">' + sign + Math.abs(diff).toFixed(0) + ' pts</span>' +
              '  </div>' +
              '  <div class="sb-bar"><i style="width:' + pct + '%"></i></div>' +
@@ -2248,8 +1970,8 @@ function updateSidebar(data) {
     }).join('') || '<div class="sb-level"><span class="dist">— aucun mur d&eacute;tect&eacute;</span></div>';
     document.getElementById(containerId).innerHTML = html;
   }
-  renderLevels('sb-resistances', resistances, 'res', true);
-  renderLevels('sb-supports',    supports,    'sup', false);
+  renderLevels('sb-resistances', callWalls, 'res');
+  renderLevels('sb-supports',    putWalls,  'sup');
 
   // Gamma clusters
   if (data.by_strike) {
@@ -2456,200 +2178,19 @@ function detectSmartEvents(data) {
   // 3. Test d'un wall fort (spot < 20 pts d'un wall STRONG)
   const nr = ma.next_resistance, ns = ma.next_support;
   const nearWalls = [];
-  if (nr && nr.strength === 'STRONG' && Math.abs(nr.distance) < 20) nearWalls.push({w: nr, type: 'résistance'});
-  if (ns && ns.strength === 'STRONG' && Math.abs(ns.distance) < 20) nearWalls.push({w: ns, type: 'support'});
+  if (nr && nr.strength === 'STRONG' && Math.abs(nr.distance) < 20) nearWalls.push({w: nr, type: 'call wall'});
+  if (ns && ns.strength === 'STRONG' && Math.abs(ns.distance) < 20) nearWalls.push({w: ns, type: 'put wall'});
   for (const x of nearWalls) {
     const key = x.w.strike;
     if (LAST_NEAR_WALL !== key) {
       pushSmartToast('wall', '🎯 Test ' + x.type + ' ' + x.w.strike.toFixed(0),
-        'Wall STRONG ' + x.w.oi.toLocaleString() + ' OI · ' + (x.type === 'résistance' ? 'rebond attendu' : 'bounce attendu'),
+        'Wall STRONG ' + x.w.oi.toLocaleString() + ' OI · ' + (x.type === 'call wall' ? 'rebond attendu' : 'bounce attendu'),
         'oi');
       LAST_NEAR_WALL = key;
     }
   }
 }
 
-function fmtPts(v) {
-  if (v == null || !isFinite(v)) return '—';
-  return (v >= 0 ? '+' : '') + v.toFixed(0) + ' pts';
-}
-
-function updateCockpit(data) {
-  const ma = data && data.market_analysis;
-  const cp = document.getElementById('cockpit');
-  if (!cp) return;
-  if (!ma || !ma.regime) {
-    cp.setAttribute('data-regime', 'UNKNOWN');
-    return;
-  }
-  cp.setAttribute('data-regime', ma.regime);
-
-  document.getElementById('cp-regime-label').textContent = ma.regime_label || '—';
-
-  // Bias
-  const biasEl  = document.getElementById('cp-bias');
-  const confEl  = document.getElementById('cp-bias-conf');
-  biasEl.textContent = ma.bias || '—';
-  biasEl.className = 'cp-bias-val ' + (ma.bias || 'neutral').toLowerCase();
-  confEl.textContent = ma.bias_confidence != null
-    ? Math.round(ma.bias_confidence * 100) + '%' : '—';
-
-  // Context line : spot · flip · GEX · charm flip si dispo
-  const parts = [];
-  if (data.spot != null) parts.push('Spot <b>$' + data.spot.toFixed(0) + '</b>');
-  if (data.gamma_flip != null) {
-    const d = data.spot - data.gamma_flip;
-    parts.push('<span class="gloss" title="Niveau pivot où le marché passe de stable à volatil.">Flip</span> <b>$' + data.gamma_flip.toFixed(0) + '</b> (' + fmtPts(d) + ')');
-  }
-  if (data.net_gex != null) parts.push('<span class="gloss" title="Gamma Exposure : + = dealers stabilisent, - = dealers amplifient.">Net GEX</span> <b>' + fmtDollar(data.net_gex) + '</b>');
-  if (data.charm_flip != null) parts.push('<span class="gloss" title="Niveau où le pin charm bascule. Souvent niveau d\'expiration probable.">Charm flip</span> <b>$' + data.charm_flip.toFixed(0) + '</b>');
-  document.getElementById('cp-context').innerHTML = parts.join(' &middot; ') || '—';
-
-  // Migration line (flip migration + trend)
-  const migEl = document.getElementById('cp-migration');
-  const migParts = [];
-  if (ma.flip_migration) {
-    const fm = ma.flip_migration;
-    if (fm.direction === 'up') {
-      migParts.push('Flip migre <span class="mig-up">↑ ' + (fm.delta >= 0 ? '+' : '') + fm.delta.toFixed(0) + ' pts</span> en ' + fm.minutes + 'min — <b>positionnement bullish</b>');
-    } else if (fm.direction === 'down') {
-      migParts.push('Flip migre <span class="mig-down">↓ ' + fm.delta.toFixed(0) + ' pts</span> en ' + fm.minutes + 'min — <b>positionnement bearish</b>');
-    } else {
-      migParts.push('Flip <b>stable</b> depuis ' + fm.minutes + 'min — régime établi');
-    }
-  }
-  if (ma.trend_atr) {
-    const t = ma.trend_atr;
-    const cls = t.trend_pct > 0.1 ? 'mig-up' : (t.trend_pct < -0.1 ? 'mig-down' : '');
-    migParts.push('Trend 5m <span class="' + cls + '">' + (t.trend_pct >= 0 ? '+' : '') + t.trend_pct.toFixed(2) + '%</span> · ATR <b>' + t.atr.toFixed(0) + '</b> pts');
-  }
-  if (migParts.length) {
-    migEl.innerHTML = migParts.join(' &nbsp;·&nbsp; ');
-    migEl.hidden = false;
-  } else {
-    migEl.hidden = true;
-  }
-
-  // Niveaux clés avec badges lifetime
-  const levelsEl = document.getElementById('cp-levels');
-  const nr = ma.next_resistance;
-  const ns = ma.next_support;
-  if (nr || ns) {
-    const renderLvl = (lv, sd, klass) => {
-      if (!lv) return '<div class="cp-lvl ' + klass + '"><span class="lbl">' + sd + '</span><span class="strike">—</span></div>';
-      const lt = lv.lifetime || 'UNKNOWN';
-      const badge = '<span class="cp-lifetime ' + lt + '" title="' + (lv.lifetime_label || '') + '">' + lt + '</span>';
-      const distStr = fmtPts(lv.distance);
-      return '<div class="cp-lvl ' + klass + '" title="' + (lv.reason || '') + '">' +
-             '  <span class="lbl">' + sd + '</span>' +
-             '  <span class="strike">' + lv.strike.toFixed(0) + '</span>' +
-             '  <span class="sb-strength ' + lv.strength + '">' + lv.strength + '</span>' +
-             '  ' + badge +
-             '  <span class="dist">' + distStr + '</span>' +
-             '</div>';
-    };
-    levelsEl.innerHTML = renderLvl(nr, 'R', 'res') + renderLvl(ns, 'S', 'sup');
-    levelsEl.hidden = false;
-  } else {
-    levelsEl.hidden = true;
-  }
-
-  // Flow confirmation badge à côté du bias
-  const fcEl = document.getElementById('cp-flow-badge');
-  if (ma.flow_confirmation) {
-    const fc = ma.flow_confirmation;
-    if (fc.direction === 'CONFIRM') {
-      fcEl.className = 'cp-flow-badge confirm';
-      fcEl.innerHTML = '✓ ' + fmtDollar(fc.premium) + ' BUY ' + fc.label;
-      fcEl.title = 'Option flow récente confirme le bias.';
-    } else {
-      fcEl.className = 'cp-flow-badge contradict';
-      fcEl.innerHTML = '✗ ' + fmtDollar(fc.premium) + ' BUY ' + fc.label;
-      fcEl.title = 'Option flow récente contredit le bias.';
-    }
-    fcEl.hidden = false;
-  } else {
-    fcEl.hidden = true;
-  }
-
-  // Setup
-  const ks = ma.key_setup || {};
-  document.getElementById('cp-setup-title').textContent = ks.title || '—';
-  document.getElementById('cp-setup-desc').textContent  = ks.description || '—';
-  document.getElementById('cp-entry').textContent  = ks.entry  != null ? ks.entry  : '—';
-  document.getElementById('cp-stop').textContent   = ks.stop   != null ? ks.stop   : '—';
-  document.getElementById('cp-target').textContent = ks.target != null ? ks.target : '—';
-  const rrEl = document.getElementById('cp-rr');
-  rrEl.textContent = ks.rr != null ? ks.rr.toFixed(2) : '—';
-  rrEl.className = ks.rr == null ? '' : (ks.rr >= 1.5 ? 'rr-good' : (ks.rr < 1.0 ? 'rr-poor' : ''));
-
-  // Actions
-  const actions = Array.isArray(ma.actions) ? ma.actions : [];
-  const actHtml = actions.map(a =>
-    '<li><span class="ico">' + (a.icon || '•') + '</span>' +
-    '<span><span class="lbl">' + (a.label || '') + '</span>' +
-    (a.detail ? '<span class="det">— ' + a.detail + '</span>' : '') + '</span></li>'
-  ).join('') || '<li>—</li>';
-  document.getElementById('cp-actions').innerHTML = actHtml;
-
-  // Traps
-  const traps = ma.traps || [];
-  const trapsEl = document.getElementById('cp-traps');
-  if (traps.length) {
-    const txt = traps.slice(0, 2).map(t => '<b>' + t.zone[0] + '–' + t.zone[1] + '</b> (' + t.gap + ' pts)').join(' · ');
-    trapsEl.innerHTML = '⚠️ Zones piège : ' + txt;
-  } else {
-    trapsEl.innerHTML = '✅ Pas de zone piège dans la fenêtre';
-  }
-
-  // Phase
-  document.getElementById('cp-phase').innerHTML = ma.phase_advice || '—';
-
-  // Smart alerts
-  detectSmartEvents(data);
-}
-
-// === Why popup ===
-function showWhyPopup(data) {
-  const ma = (data && data.market_analysis) || {};
-  const body = document.getElementById('cp-why-body');
-  const setup = ma.key_setup || {};
-  const nr = ma.next_resistance, ns = ma.next_support;
-
-  const fmtLvl = (lv, sd) => lv
-    ? '<li><b>' + lv.strike.toFixed(0) + '</b> ' + sd + ' · ' + lv.strength +
-      ' · ' + (lv.oi || 0).toLocaleString() + ' OI · ' + (lv.reason || '') + '</li>'
-    : '<li>—</li>';
-
-  body.innerHTML =
-    '<h4>Régime</h4>' +
-    '<p>' + (ma.regime_explanation || '—') + '</p>' +
-    '<h4>Niveaux clés</h4>' +
-    '<ul>' + fmtLvl(nr, 'résistance') + fmtLvl(ns, 'support') + '</ul>' +
-    '<h4>Setup</h4>' +
-    '<p><b>' + (setup.title || '—') + '</b><br>' + (setup.description || '—') + '</p>' +
-    (setup.entry != null ? ('<p>Entry <b>' + setup.entry + '</b> · Stop <b>' + setup.stop + '</b> · Cible <b>' + setup.target + '</b> · R:R <b>' + (setup.rr || '—') + '</b></p>') : '') +
-    '<h4>Bias</h4>' +
-    '<p><b>' + ma.bias + '</b> confiance ' + Math.round((ma.bias_confidence || 0) * 100) + '%. ' +
-    'Le bias prend en compte 1) le régime (' + ma.regime + '), 2) le setup actif, 3) le delta-flow session.</p>' +
-    '<h4>Pièges identifiés</h4>' +
-    (ma.traps && ma.traps.length
-      ? '<ul>' + ma.traps.map(t => '<li><b>' + t.zone[0] + '–' + t.zone[1] + '</b> : ' + t.reason + '</li>').join('') + '</ul>'
-      : '<p>Aucun.</p>') +
-    '<h4>Phase de marché</h4>' +
-    '<p>' + (ma.phase_advice || '—') + '</p>';
-
-  document.getElementById('cp-why-popup').hidden = false;
-}
-document.addEventListener('DOMContentLoaded', () => {
-  const btn   = document.getElementById('cp-why-btn');
-  const close = document.getElementById('cp-why-close');
-  const popup = document.getElementById('cp-why-popup');
-  if (btn)   btn.addEventListener('click',   () => showWhyPopup(window.LAST_DATA));
-  if (close) close.addEventListener('click', () => popup.hidden = true);
-  if (popup) popup.addEventListener('click', (e) => { if (e.target === popup) popup.hidden = true; });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') popup.hidden = true; });
-});
 
 // Render
 function render(data) {
@@ -2657,10 +2198,7 @@ function render(data) {
 
   document.getElementById('main-content').classList.remove('hidden');
   document.getElementById('waiting').classList.remove('show');
-  document.getElementById('pulse').className = 'pulse';
-
-  // Trader Cockpit : verdict décisionnel en haut de page
-  updateCockpit(data);
+  noteSnapshotReceived();
 
   // Spot intraday chart + niveaux Greeks (TOP du dashboard)
   updateSpotChart(data);
@@ -2746,43 +2284,74 @@ function render(data) {
     tbody.appendChild(tr);
   });
 
-  // Timestamp
+  // Timestamp : uniquement date/heure, sans préfixe.
   const ts = new Date(data.ts_ns / 1e6);
-  document.getElementById('last-update').textContent =
-    'mis a jour ' + ts.toLocaleTimeString('fr-FR');
+  document.getElementById('last-update').textContent = formatDateTime(ts);
 }
+
+function formatDateTime(d) {
+  const p = n => String(n).padStart(2, '0');
+  return p(d.getDate()) + '/' + p(d.getMonth() + 1) + '/' + d.getFullYear() + ' ' +
+         p(d.getHours()) + ':' + p(d.getMinutes()) + ':' + p(d.getSeconds());
+}
+
+// === Connectivity status : diode + texte connected/stale/disconnected ===
+// Le délai réel "live" dépend aussi de Databento, du réseau et du plan data,
+// pas seulement de la fréquence de push du serveur.
+const STALE_AFTER_MS = 3000;
+let wsConnected = false;
+let lastSnapshotAt = 0;
+
+function noteSnapshotReceived() {
+  lastSnapshotAt = Date.now();
+  refreshConnectionStatus();
+}
+
+function refreshConnectionStatus() {
+  const pulse = document.getElementById('pulse');
+  const label = document.getElementById('ws-status');
+  if (!wsConnected) {
+    pulse.className = 'pulse dead';
+    label.textContent = 'disconnected';
+  } else if (!lastSnapshotAt || Date.now() - lastSnapshotAt > STALE_AFTER_MS) {
+    pulse.className = 'pulse stale';
+    label.textContent = 'stale';
+  } else {
+    pulse.className = 'pulse';
+    label.textContent = 'connected';
+  }
+}
+setInterval(refreshConnectionStatus, 1000);
 
 // WebSocket connection
 let socket = null;
-let usingWebSocket = false;
 
 function connectWebSocket() {
   try {
-    socket = io(API, { transports: ['websocket', 'polling'] });
+    // Privilégier le WebSocket pur : pas d'upgrade depuis polling, qui ajoute
+    // de la latence. Le fallback HTTP n'intervient qu'en cas d'échec.
+    socket = io(API, { transports: ['websocket'], upgrade: false });
 
     socket.on('connect', () => {
-      usingWebSocket = true;
-      document.getElementById('ws-status').textContent = 'ws live';
-      document.getElementById('ws-status').style.color = '#39d353';
+      wsConnected = true;
+      refreshConnectionStatus();
       console.log('[ws] Connected');
       socket.emit('request_snapshot');
     });
 
     socket.on('disconnect', () => {
-      document.getElementById('ws-status').textContent = 'ws disconnected';
-      document.getElementById('ws-status').style.color = '#f85149';
-      document.getElementById('pulse').className = 'pulse dead';
+      wsConnected = false;
+      refreshConnectionStatus();
     });
 
     socket.on('snapshot', (data) => {
       if (data.status === 'waiting') {
         document.getElementById('main-content').classList.add('hidden');
         document.getElementById('waiting').classList.add('show');
-        document.getElementById('pulse').className = 'pulse waiting';
         document.getElementById('wait-msg').textContent = data.message;
+        noteSnapshotReceived();
       } else if (data.status === 'error') {
-        document.getElementById('pulse').className = 'pulse dead';
-        document.getElementById('last-update').textContent = 'erreur: ' + data.message;
+        console.error('[snapshot] erreur serveur:', data.message);
       } else {
         render(data);
       }
@@ -2790,9 +2359,8 @@ function connectWebSocket() {
 
     socket.on('connect_error', (err) => {
       console.warn('[ws] Connection error, falling back to HTTP polling:', err.message);
-      usingWebSocket = false;
-      document.getElementById('ws-status').textContent = 'http poll';
-      document.getElementById('ws-status').style.color = '#e3b341';
+      wsConnected = false;
+      refreshConnectionStatus();
       startPolling();
     });
   } catch (e) {
@@ -2801,7 +2369,7 @@ function connectWebSocket() {
   }
 }
 
-// HTTP polling fallback
+// HTTP polling fallback (uniquement si le WebSocket échoue)
 let pollingInterval = null;
 
 function startPolling() {
@@ -2815,17 +2383,18 @@ function startPolling() {
       if (data.status === 'waiting') {
         document.getElementById('main-content').classList.add('hidden');
         document.getElementById('waiting').classList.add('show');
-        document.getElementById('pulse').className = 'pulse waiting';
         document.getElementById('wait-msg').textContent = data.message;
+        wsConnected = true;
+        noteSnapshotReceived();
       } else if (data.status === 'error') {
-        document.getElementById('pulse').className = 'pulse dead';
-        document.getElementById('last-update').textContent = 'erreur: ' + data.message;
+        console.error('[snapshot] erreur serveur:', data.message);
       } else {
+        wsConnected = true;
         render(data);
       }
     } catch (e) {
-      document.getElementById('pulse').className = 'pulse dead';
-      document.getElementById('last-update').textContent = 'serveur inaccessible';
+      wsConnected = false;
+      refreshConnectionStatus();
       console.error(e);
     }
   }
@@ -2851,6 +2420,7 @@ syncOverlayUI();
 
 // Boot
 setupCrosshair();
+refreshConnectionStatus();
 connectWebSocket();
 </script>
 <div class="toast-stack" id="toast-stack"></div>
