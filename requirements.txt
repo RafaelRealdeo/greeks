@@ -1,0 +1,8 @@
+databento
+flask
+flask-cors
+flask-socketio
+python-dotenv
+numpy
+pandas
+matplotlib
